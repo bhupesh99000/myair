@@ -10,7 +10,7 @@ header nav {
   box-sizing: border-box;
   display: grid;
   grid-template:
-    'hamburger brand tools' var(--nav-height)
+    'brand tools hamburger' var(--nav-height)
     'sections sections sections' 1fr / auto 1fr auto;
   align-items: center;
   gap: 0 2em;
@@ -22,10 +22,10 @@ header nav {
 }
 
 header nav[aria-expanded="true"] {
-  grid-template:
-    'hamburger brand' var(--nav-height)
+  /* grid-template:
+    'brand tools hamburger' var(--nav-height)
     'sections sections' 1fr
-    'tools tools' var(--nav-height) / auto 1fr;
+    'tools tools' var(--nav-height) / auto 1fr; */
   overflow-y: auto;
   min-height: 100vh;
 }
@@ -66,18 +66,48 @@ header nav .nav-hamburger {
 }
 
 header nav .nav-hamburger button {
-  height: 22px;
-  margin: 0;
-  border: 0;
-  border-radius: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
   padding: 0;
-  background-color: var(--background-color);
-  color: inherit;
-  overflow: initial;
-  text-overflow: initial;
-  white-space: initial;
 }
 
+header nav .nav-hamburger button .line {
+  fill: none;
+  stroke: black;
+  stroke-width: 6;
+  transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+    stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+header nav .nav-hamburger button .line1 {
+  stroke-dasharray: 60 207;
+  stroke-width: 6;
+}
+header nav .nav-hamburger button .line2 {
+  stroke-dasharray: 60 60;
+  stroke-width: 6;
+}
+header nav .nav-hamburger button .line3 {
+  stroke-dasharray: 60 207;
+  stroke-width: 6;
+}
+header nav .nav-hamburger button.opened .line1 {
+  stroke-dasharray: 90 207;
+  stroke-dashoffset: -134;
+  stroke-width: 6;
+}
+header nav .nav-hamburger button.opened .line2 {
+  stroke-dasharray: 1 60;
+  stroke-dashoffset: -30;
+  stroke-width: 6;
+}
+header nav .nav-hamburger button.opened .line3 {
+  stroke-dasharray: 90 207;
+  stroke-dashoffset: -134;
+  stroke-width: 6;
+}
+/* 
 header nav .nav-hamburger-icon,
 header nav .nav-hamburger-icon::before,
 header nav .nav-hamburger-icon::after {
@@ -129,7 +159,7 @@ header nav[aria-expanded="true"] .nav-hamburger-icon::after {
   top: unset;
   bottom: 3px;
   transform: rotate(-45deg);
-}
+} */
 
 @media (width >= 900px) {
   header nav .nav-hamburger {

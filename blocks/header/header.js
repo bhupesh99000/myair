@@ -1,5 +1,6 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
+import utils from '../../scripts/utils.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -122,6 +123,9 @@ export default async function decorate(block) {
   });
 
   const navBrand = nav.querySelector('.nav-brand');
+  const logoImgs = navBrand.querySelectorAll('picture');
+  logoImgs[0].classList.add('ai-red-logo');
+  logoImgs[1].classList.add('ai-white-logo');
   const brandLink = navBrand.querySelector('.button');
   if (brandLink) {
     brandLink.className = '';
@@ -142,6 +146,30 @@ export default async function decorate(block) {
     });
   }
 
+  const navTools = nav.querySelector('.nav-tools');
+  const navToolsWrapper = navTools.querySelector(':scope > div');
+  navToolsWrapper.classList.add('nav-tools-wrapper');
+  if(navTools) {
+    const tools = navTools.querySelectorAll('p');
+    tools.forEach((tool, index) => {
+      const anchor = document.createElement('a');
+      const iconWrap = tool.querySelector(':scope > span');
+      const classes = iconWrap?.classList;
+      const iconType = iconWrap?.classList[1]?.split('-')[1];
+      anchor.id = iconType;
+      anchor.href = '#';
+      anchor.title = iconType;
+      anchor.classList = classes;
+      const iconImg = iconWrap.querySelector('img');
+      utils.wrap(iconImg, anchor);
+      const anchorClone = iconWrap.querySelector('a')?.cloneNode(true);
+      if(anchorClone) {
+        navToolsWrapper.append(anchorClone);
+        tool.remove();
+      }
+    });
+  }
+
   // hamburger for mobile
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');
@@ -149,10 +177,24 @@ export default async function decorate(block) {
   const hamburgerBtn = hamburger.querySelector('button');
   hamburgerBtn.addEventListener('click', (event) => {
     const btn = event.currentTarget;
+    const isOpen = btn.classList.contains('opened');
     btn.classList.toggle('opened');
-    btn.setAttribute('aria-expanded', btn.classList.contains('opened'));
+    btn.setAttribute('aria-expanded', isOpen);
     toggleMenu(nav, navSections);
+    if(!isOpen) {
+      block.classList.add('inverted');
+    }
+    if(isOpen && window.scrollY < 10) {
+      block.classList.remove('inverted');
+    }
   });
+  window.onscroll = () => {
+    if(window.scrollY > 10) {
+      block.classList.add('inverted');
+    } else {
+      block.classList.remove('inverted');
+    }
+  };
 
   nav.append(hamburger);
   nav.setAttribute('aria-expanded', 'false');

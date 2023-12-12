@@ -9,38 +9,26 @@ header .nav-wrapper {
 
 .header.inverted .nav-wrapper{
   background: var(--background-color);
-  -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.16);
-  box-shadow: 0 2px 10px rgba(0,0,0,.16);
+  box-shadow: 0 2px 10px rgba(0 0 0 / 16%);
 }
 
 header nav {
   box-sizing: border-box;
   display: grid;
-  /* grid-template:
-    'brand tools hamburger' var(--nav-height)
-    'sections sections sections' 1fr / auto 1fr auto; */
   align-items: center;
   margin: auto;
   max-width: 1264px;
   height: var(--nav-height);
   padding: 0 1rem;
   font-family: var(--body-font-family);
-
-
   grid-template:
       'brand tools hamburger'
       'sections sections sections';
-  align-items: center;
-  /* gap: 0 1em; */
   grid-template-rows: var(--nav-height) auto 1fr auto;
   grid-template-columns: 1fr auto 30px;
 }
 
 header nav[aria-expanded="true"] {
-  /* grid-template:
-    'brand tools hamburger' var(--nav-height)
-    'sections sections' 1fr
-    'tools tools' var(--nav-height) / auto 1fr; */
   overflow-y: auto;
   min-height: 100vh;
 }
@@ -103,33 +91,40 @@ header nav .nav-hamburger button .line {
 header .header.inverted .nav-hamburger button .line {
   stroke: var(--text-color);
 }
+
 header nav .nav-hamburger button .line1 {
   stroke-dasharray: 60 207;
   stroke-width: 6;
 }
+
 header nav .nav-hamburger button .line2 {
   stroke-dasharray: 60 60;
   stroke-width: 6;
 }
+
 header nav .nav-hamburger button .line3 {
   stroke-dasharray: 60 207;
   stroke-width: 6;
 }
+
 header nav .nav-hamburger button.opened .line1 {
   stroke-dasharray: 90 207;
   stroke-dashoffset: -134;
   stroke-width: 6;
 }
+
 header nav .nav-hamburger button.opened .line2 {
   stroke-dasharray: 1 60;
   stroke-dashoffset: -30;
   stroke-width: 6;
 }
+
 header nav .nav-hamburger button.opened .line3 {
   stroke-dasharray: 90 207;
   stroke-dashoffset: -134;
   stroke-width: 6;
 }
+
 /* Mobile Hamburger End */
 
 @media (width >= 900px) {
@@ -156,11 +151,19 @@ header .header.header.inverted {
   color: var(--text-color);
 }
 
-header .header .nav-brand .ai-red-logo, header .header.inverted .nav-brand .ai-white-logo {
+header .header .nav-brand .ai-red-logo {
   display: none;
 }
 
-header .header .nav-brand .ai-white-logo, header .header.inverted .nav-brand .ai-red-logo {
+header .header .nav-brand .ai-white-logo {
+  display: block;
+}
+
+header .header.inverted .nav-brand .ai-white-logo {
+  display: none;
+}
+
+header .header.inverted .nav-brand .ai-red-logo {
   display: block;
 }
 
